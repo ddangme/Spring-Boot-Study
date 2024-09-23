@@ -31,6 +31,48 @@
 > 스프링 3.0 이상은 자바 17이 최소 요구 버전이다.
 
 ## 프로젝트 설정
+1. [기본 프로젝트](https://github.com/ddangme/Spring-Boot-Study/commit/8702ad8adbba6442b89e9af0c64aa9700e075920)를 다운로드 한다.
+2. IDE에서 `build.gradle`을 선택한다.
+3. [build.gradle](../server/build.gradle)을 확인한다.
+   - `id 'war'`: 톰캣 같은 웹 애플리케이션 서버(WAS) 위에서 동작하는 WAR 파일을 만들어주는 플러그인이다.
+   - `jakarta.servlet-api`: 서블릿을 사용할 때 필요한 라이브러리이다.
+4. HTML 등록
+`/src/main/webapp` 에서 [index.html](../server/src/main/webapp/index.html) 파일을 만든 뒤 코드를 작성한다.
+    ```html
+    <html>
+    <body>index html</body>
+    </html>
+    ```
+5. 서블릿 등록
+   - 전체 설정이 잘 동작하는지 확인하기 위한 간단한 서블릿
+   - 웹 서버를 통해 이 서블릿이 실행되어야 한다.
+   - [TestServlet.java](../server/src/main/java/hello/servlet/TestServlet.java) 파일을 만든 뒤 코드를 작성한다.
+      ```java
+      package hello.servlet;
+      
+      import jakarta.servlet.annotation.WebServlet;
+      import jakarta.servlet.http.HttpServlet;
+      import jakarta.servlet.http.HttpServletRequest;
+      import jakarta.servlet.http.HttpServletResponse;
+      import java.io.IOException;
+      /**
+       * http://localhost:8080/test
+       */
+      @WebServlet(urlPatterns = "/test")
+      public class TestServlet extends HttpServlet {
+          @Override
+          protected void service(HttpServletRequest req, HttpServletResponse resp)
+                  throws IOException {
+              System.out.println("TestServlet.service");
+              resp.getWriter().println("test");
+          }
+      }
+      ```
+   - `/test`로 요청이 오면 이 서블릿이 실행된다.
+   - `TestServlet.service`를 로그에 출력한다.
+   - `test`를 응답한다. 웹 브라우저로 요청하면 이 서블릿이 실행되고 화면에 `test`가 출력되어야 한다.
+   - 이 서블릿을 실행하려면 톰캣과 같은 웹 애플리케이션 서버(WAS)에 이 코드를 배포해야 한다.
+
 
 ## WAR 빌드와 배포
 ## 톰캣 설정
