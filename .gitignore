@@ -15,6 +15,12 @@
 # AWS User-specific
 .idea/**/aws.xml
 
+# build
+/**/build
+
+# gradle
+/**/.gradle/**
+
 # Generated files
 .idea/**/contentModel.xml
 
